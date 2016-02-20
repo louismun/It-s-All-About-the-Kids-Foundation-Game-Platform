@@ -21,8 +21,16 @@ public class Score : MonoBehaviour {
 	public void addScore() {
 
       long currNum = Convert.ToInt64(this.gameObject.GetComponent<TextMesh>().text);
-      currNum++;
+      currNum+=20;
       this.gameObject.GetComponent<TextMesh>().text = currNum.ToString();
+
+	}
+
+	public void decreaseScore() {
+
+		long currNum = Convert.ToInt64(this.gameObject.GetComponent<TextMesh>().text);
+		currNum-=20;
+		this.gameObject.GetComponent<TextMesh>().text = currNum.ToString();
 
 	}
 }

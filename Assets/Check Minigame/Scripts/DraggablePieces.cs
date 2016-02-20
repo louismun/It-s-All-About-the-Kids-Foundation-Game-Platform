@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DraggablePieces : MonoBehaviour {
 
@@ -8,11 +9,16 @@ public class DraggablePieces : MonoBehaviour {
 
     private Vector3 mouseOffset;
     private Vector3 currPos;
+    
+    private GameObject draggedPiece;
 
+    //on mouse down save reference to object
+    //on mouse button down figures how much it moved in last frame. calculate distance and add that to location of reference you have.
+    
 	// Use this for initialization
 	void Start () {
 
-	  currPos = this.transform.position;
+	  //currPos = this.transform.position;
 
 	}
 	
@@ -22,24 +28,12 @@ public class DraggablePieces : MonoBehaviour {
 	  //when the button is first pressed down
 	  if (Input.GetMouseButtonDown(0)) {
 
-	    //set the mouse offset from the center of the game object
-	    mouseOffset = currPos - Camera.main.ScreenToWorldPoint(
-	      new Vector3(Input.mousePosition.x,
-	                  Input.mousePosition.y,
-	                  Input.mousePosition.z));
-
-
-	  }
-
-	  //while the mouse button is being held down
-	  if (Input.GetMouseButton(0)) {
-
 	     //checks if the user is pressing on the draggable object
 	     RaycastHit2D hit = Physics2D.Raycast(
 	       Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up);
 
 	     //if object is being pressed
-	     if (hit && hit.collider.GetComponent<DraggablePieces>() == this) {
+	     if (hit && hit.collider.GetComponent<DraggablePieces>().draggable) {
 
 	      //if the object can currently be dragged
 	      if (draggable) {
@@ -52,6 +46,19 @@ public class DraggablePieces : MonoBehaviour {
 
             //updates current object position
 	        currPos = this.transform.position;
+
+	    //set the mouse offset from the center of the game object
+	 /*   mouseOffset = currPos - Camera.main.ScreenToWorldPoint(
+	      new Vector3(Input.mousePosition.x,
+	                  Input.mousePosition.y,
+	                  Input.mousePosition.z));*/
+
+
+	  }
+
+	  //while the mouse button is being held down
+	  if (Input.GetMouseButton(0)) {
+
 
 	      }
 	    }
